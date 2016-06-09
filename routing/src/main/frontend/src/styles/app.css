@@ -1,0 +1,28 @@
+.app-header {
+	top: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1030;
+}
+
+.app-body {
+	padding: 30px;
+	padding-top:40px;
+	width:90%;
+}
+
+.custom-menu-item {
+	cursor: pointer; 
+	color: black;
+}
+
+
+.menu-link {
+	color: black;	
+}
+
+.nav > .active {
+	background: rgba(0, 0, 0, 0.1);
+	color: #f6f6f6;
+}

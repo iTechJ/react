@@ -1,0 +1,52 @@
+{
+  "name": "ItechReactTraining",
+  "private": true,
+  "version": "1.0.0",
+  "description": "React Lesson  Hello World",
+  "main": "",
+  "scripts": {
+    "dev-build": "webpack -d --display-modules"
+  },
+  "repository": "",
+  "keywords": [],
+  "author": "Alexander Balyev",
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-eslint": "^5.0.0-beta4",
+    "babel-loader": "^6.0.0",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "bower-webpack-plugin": "^0.1.9",
+    "chai": "^3.2.0",
+    "copyfiles": "^0.2.1",
+    "css-loader": "^0.23.0",
+    "file-loader": "^0.8.4",
+    "glob": "^6.0.0",
+    "isparta-instrumenter-loader": "^1.0.0",
+    "minimist": "^1.2.0",
+    "null-loader": "^0.1.1",
+    "open": "0.0.5",
+    "phantomjs": "^1.9.18",
+    "react-hot-loader": "^1.2.9",
+    "rimraf": "^2.4.3",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.6",
+    "less": "^2.3.1",
+    "less-loader": "^2.2.2",
+    "webpack": "^1.12.0",
+    "webpack-dev-server": "^1.12.0",
+    "exports-loader": "^0.6.2",
+    "extract-text-webpack-plugin": "^0.3.8",
+    "imports-loader": "^0.6.3"
+  },
+  "dependencies": {
+    "jquery": "2.1.4",
+    "bootstrap": "^3.0.2",
+    "bootstrap-webpack": "^0.0.5",
+    "core-js": "^1.2.6",
+    "lodash": "^3.10.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "flux": "^2.0.0"
+  }
+ }
