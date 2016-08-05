@@ -46,9 +46,7 @@ class AuthorEditorWrapper extends React.Component {
   }
 }
 
-AuthorEditorWrapper.propTypes = {
-
-};
+AuthorEditorWrapper.propTypes = {};
 
 export default AuthorEditorWrapper;
 

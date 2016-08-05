@@ -1,6 +1,4 @@
-/**
- * 
- */
+import $ from 'jquery';
 import AuthorAction from '../actions/author.action';
 import MenuService from './menu.service';
 
@@ -21,7 +19,6 @@ export default {
   },
 
   createAuthor(author) {
-    let self = this;
     $.ajax({
       type: 'POST',
       url: '/api/authors',
@@ -31,9 +28,9 @@ export default {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done(function (json) {
+    }).done((json) => {
     	MenuService.selectItem(json);
-    	self.getAuthors();
+    	this.getAuthors();
     }).fail(function (response) {
       console.log('Could not save an author');
     });
@@ -57,7 +54,6 @@ export default {
   },
 
   deleteAuthor(author) {
-	var self = this;
     $.ajax({
       type: 'DELETE',
       url: '/api/authors/' + author.id,
@@ -65,8 +61,8 @@ export default {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
-    }).done(function () {
-    	self.getAuthors();
+    }).done(() => {
+    	this.getAuthors();
     	MenuService.selectItem(null);
     }).fail(function (response) {
       console.log('Could not delete an author');

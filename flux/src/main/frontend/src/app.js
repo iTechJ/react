@@ -6,7 +6,6 @@ require('bootstrap-webpack');
 
 import IndexComponent from './components/index';
 
-//This line was moved to separate file, because usually there is some logic related to render function(Routing)
 render(<IndexComponent /> , document.getElementById('app'));
 
 

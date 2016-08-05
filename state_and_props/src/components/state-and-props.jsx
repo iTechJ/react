@@ -19,12 +19,12 @@ class StatePropsApp extends React.Component {
     this.onCurrentPageDetailsChange = this.onCurrentPageDetailsChange.bind(this);
     this.onSubTitleChange = this.onSubTitleChange.bind(this);
 
-    //No way to use this.setState in constructor
+    //You cannot call this.setState in constructor
     this.state = this.getCurrentState();
   }
 
   /*
-   In general, state should be flat. 
+   In general, state should be flat.
    Having object in state might be usefull for form data
    State is just an object
    */
@@ -47,7 +47,7 @@ class StatePropsApp extends React.Component {
      */
     this.state.currentPageDetails[fieldName] = newValue;
     this.setState(this.state);
-    //Never call this.state after calling this.setState() 
+    //Never call this.state after calling this.setState()
   }
 
   onSubTitleChange(newValue) {
@@ -60,6 +60,14 @@ class StatePropsApp extends React.Component {
     return (
       <div>
         <div className='container' style={{paddingTop:'10%'}}>
+          <div className='row'>
+            <div className='col-md-8 col-md-offset-2'>
+              <div className='text-center'
+                   dangerouslySetInnerHTML={{__html: '<h4 class="text-info">This is raw HTML markup</h4><form class="navbar-form navbar-left" style="width:100%" role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search"></div><button type="submit" class="btn btn-default">Submit</button></form>'}}>
+
+              </div>
+            </div>
+          </div>
           <div className='row'>
             <div className='col-md-8 col-md-offset-2 col-sm-10  col-sm-offset-1'>
               <PageContent pageTitle={this.props.pageTitle} subTitle={this.state.pageSubTitle} help={help}

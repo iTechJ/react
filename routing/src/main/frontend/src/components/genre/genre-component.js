@@ -1,6 +1,6 @@
 import React from 'react';
-import GenresService from '../../services/genre.service';
 import MenuService from '../../services/menu.service';
+import GenresService from '../../services/genre.service';
 import MenuStore from '../../stores/menu.store';
 import GenresStore from '../../stores/genre.store';
 import Input from '../common/text-input';
@@ -15,7 +15,6 @@ class GenreComponent extends React.Component {
       selectedGenre : null
     };
     this.onChange = this.onChange.bind(this);
-    GenresService.getGenres();
   }
 
   componentDidMount() {
@@ -66,9 +65,7 @@ class GenreComponent extends React.Component {
   }
 }
 
-GenreComponent.propTypes = {
-
-};
+GenreComponent.propTypes = {};
 
 export default GenreComponent;
 
@@ -120,8 +117,8 @@ class GenreForm extends React.Component {
   }
 
   render() {
-    let editingLabel = <span> Editing of <b> {this.props.genre.name} </b> Genre </span>
-    let creatingLabel = <span>Create new Genre</span>
+    let editingLabel = <span> Editing of <b> {this.props.genre.name} </b> Genre </span>;
+    let creatingLabel = <span>Create new Genre</span>;
     return (
       <div style={{marginTop: '10%'}}>
         <form className='form-horizontal'>

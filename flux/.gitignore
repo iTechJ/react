@@ -2,6 +2,7 @@
 .settings
 .project
 .classpath
+/src/main/frontent/.idea/
 /.idea/
 /*.iml
 /devdb*

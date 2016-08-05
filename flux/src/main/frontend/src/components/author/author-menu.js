@@ -6,10 +6,6 @@ import AuthorStore from '../../stores/author.store';
 
 class AuthorMenu extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   selectMenuItem(author) {
     MenuService.selectItem(author);
   }

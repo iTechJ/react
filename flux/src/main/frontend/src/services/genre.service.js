@@ -1,5 +1,4 @@
 import $ from 'jquery';
-
 import GenreAction from '../actions/genre.action';
 import MenuService from './menu.service';
 
@@ -13,14 +12,19 @@ export default {
       },
       dataType: 'json'
     }).done(function (json) {
-    	GenreAction.initGenres(json);
+      //When request from backend is received we pass data to action creator
+      GenreAction.initGenres(json);
+      /*
+       Services are not a part of FLUX architecture.
+       This additional level was introduces because usually you may want to create many actions when response from backend is received
+       Also, processing of many requests may require creation of the same actions
+       */
     }).fail(function (response, textStatus, error) {
       console.log('Could not get list of genres');
     });
   },
 
   createGenre(genre) {
-    let self = this;
     $.ajax({
       type: 'POST',
       url: '/api/genres',
@@ -30,9 +34,9 @@ export default {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done(function (json) {
-    	MenuService.selectItem(json);
-    	self.getGenres();
+    }).done((json) => {
+      MenuService.selectItem(json);
+      this.getGenres();
     }).fail(function (response) {
       console.log('Could not save genre');
     });
@@ -49,14 +53,13 @@ export default {
       },
       dataType: 'json'
     }).done(function (json) {
-    	MenuService.selectItem(json);
+      MenuService.selectItem(json);
     }).fail(function (response) {
       console.log('Could not update genre');
     });
   },
 
   deleteGenre(genre) {
-	var self = this;
     $.ajax({
       type: 'DELETE',
       url: '/api/genres/' + genre.id,
@@ -64,9 +67,9 @@ export default {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
-    }).done(function () {
-    	self.getGenres();
-    	MenuService.selectItem(null);
+    }).done(() => {
+      this.getGenres();
+      MenuService.selectItem(null);
     }).fail(function (response) {
       console.log('Could not delete genre');
     });

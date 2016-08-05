@@ -1,5 +1,5 @@
 .app-header {
-	top: 0;
+    top: 0;
     right: 0;
     left: 0;
     position: fixed;
@@ -7,17 +7,16 @@
 }
 
 .app-body {
-	padding: 30px;
-	padding-top:40px;
-	width:90%;
+    padding: 30px;
+    padding-top: 40px;
+    width: 90%;
 }
 
 .custom-menu-item {
-	  cursor: pointer; 
-	  color: black;
+    cursor: pointer;
+    color: black;
 }
 
-
 .menu-link {
-color: black;	
+    color: black;
 }

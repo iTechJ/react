@@ -12,6 +12,14 @@ global.$ = global.jQuery;
 require('bootstrap-webpack');
 
 //The most common types on history are browserHistory and hashHistory
+
+/*
+Previously we passed our React component to render function.
+With Routing, you pass Router with mapping from URL to React component to render function
+Components in mapping are usually "page components"
+
+ /authors(/:authorId) - authorId is optional parameter, will be available in AuthorsPage component as this.props.params.authorId
+ */
 render((
   <Router history={hashHistory}>
     <Route path='/' component={WelcomePage} />

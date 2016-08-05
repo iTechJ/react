@@ -6,18 +6,14 @@ import BookStore from '../../stores/author.store';
 
 class BookMenu extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   selectMenuItem(book) {
     MenuService.selectItem(book);
   }
 
-  createNewAuthor() {
-	    MenuService.selectItem({});
-	  }
-  
+    createNewAuthor() {
+        MenuService.selectItem({});
+    }
+
   render() {
     return (
      <div className='menu-wrapper'>

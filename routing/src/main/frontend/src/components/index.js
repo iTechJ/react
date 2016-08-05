@@ -5,8 +5,10 @@ import BookComponent from './book/book-component';
 import HeaderComponent from './header';
 require('../styles/app.css');
 
+/*
+This component defines common page layout in application. Children, passed to this component, are content of each specific page
+ */
 class IndexComponent extends React.Component {
-
   render() {
     return (
       <div>

@@ -1,11 +1,8 @@
 import React from 'react';
-import BookService from '../../services/book.service';
 import MenuStore from '../../stores/menu.store';
 import BookStore from '../../stores/book.store';
 import BookMenu from './book-menu';
 import BookEditor from './book-editor';
-import AuthorsService from '../../services/author.service';
-import GenresService from '../../services/genre.service';
 
 class BookComponent extends React.Component {
 
@@ -14,9 +11,6 @@ class BookComponent extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getCurrentState = this.getCurrentState.bind(this);
     this.state = this.getCurrentState();
-    BookService.getBooks();
-    AuthorsService.getAuthors();
-    GenresService.getGenres();
   }
 
   componentDidMount() {
@@ -53,8 +47,6 @@ class BookComponent extends React.Component {
   }
 }
 
-BookComponent.propTypes = {
-
-};
+BookComponent.propTypes = {};
 
 export default BookComponent;

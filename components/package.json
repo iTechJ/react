@@ -2,7 +2,7 @@
   "name": "ItechReactTraining",
   "private": true,
   "version": "1.0.0",
-  "description": "React Lesson  Hello World",
+  "description": "React Lesson - Components Example",
   "main": "",
   "scripts": {
     "clean": "rimraf dist/*",

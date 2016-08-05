@@ -1,5 +1,4 @@
 import React from 'react';
-import AuthorsService from '../../services/author.service';
 import MenuStore from '../../stores/menu.store';
 import AuthorsStore from '../../stores/author.store';
 import AuthorMenu from './author-menu';
@@ -12,7 +11,6 @@ class AuthorComponent extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.getCurrentState = this.getCurrentState.bind(this);
     this.state = this.getCurrentState();
-    AuthorsService.getAuthors();
   }
 
   componentDidMount() {
@@ -49,8 +47,6 @@ class AuthorComponent extends React.Component {
   }
 }
 
-AuthorComponent.propTypes = {
-
-};
+AuthorComponent.propTypes = {};
 
 export default AuthorComponent;

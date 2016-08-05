@@ -49,12 +49,9 @@ class BookEditorWrapper extends React.Component {
   }
 }
 
-BookEditorWrapper.propTypes = {
-
-};
+BookEditorWrapper.propTypes = {};
 
 export default BookEditorWrapper;
-
 
 class BookEditor extends React.Component {
 
@@ -92,7 +89,7 @@ class BookEditor extends React.Component {
       book: JSON.parse(JSON.stringify(props.book)),
       authors: AuthorsStore.getAuthors() ? AuthorsStore.getAuthors() : [],
       genres: GenresStore.getAllGenres() ? GenresStore.getAllGenres() : []	  ,
-      disabledClass: 'disabled',
+      disabledClass: 'disabled'
     }
   }
 
@@ -190,5 +187,5 @@ class BookEditor extends React.Component {
 }
 
 BookEditor.propTypes = {
-		book: React.PropTypes.object.isRequired
+  book: React.PropTypes.object.isRequired
 };

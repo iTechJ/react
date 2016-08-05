@@ -1,6 +1,4 @@
-/**
- * 
- */
+import $ from 'jquery';
 import BookAction from '../actions/book.action';
 import MenuService from './menu.service';
 
@@ -21,7 +19,6 @@ export default {
   },
 
   createBook(book) {
-    let self = this;
     $.ajax({
       type: 'POST',
       url: '/api/books',
@@ -31,16 +28,15 @@ export default {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done(function (json) {
+    }).done(() => {
     	MenuService.selectItem(json);
-    	self.getBooks();
+    	this.getBooks();
     }).fail(function (response) {
       console.log('Could not save a book');
     });
   },
 
   updateBook(book) {
-	  console.log(JSON.stringify(book));
     $.ajax({
       type: 'PUT',
       url: '/api/books/' + book.id,
@@ -58,7 +54,6 @@ export default {
   },
 
   deleteBook(book) {
-	var self = this;
     $.ajax({
       type: 'DELETE',
       url: '/api/books/' + book.id,
@@ -66,8 +61,8 @@ export default {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
-    }).done(function () {
-    	self.getBooks();
+    }).done(() => {
+    	this.getBooks();
     	MenuService.selectItem(null);
     }).fail(function (response) {
       console.log('Could not delete a book');

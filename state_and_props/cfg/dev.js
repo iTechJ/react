@@ -13,7 +13,7 @@ let config = _.merge({
   entry: [
     'webpack-dev-server/client?http://127.0.0.1:8000',
     'webpack/hot/only-dev-server',
-    './src/components/injector'
+    './src/components/entry-point'
   ],
   cache: true,
   devtool: 'eval',

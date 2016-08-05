@@ -5,12 +5,7 @@ import MenuStore from '../../stores/menu.store';
 import AuthorStore from '../../stores/author.store';
 import { Link } from 'react-router';
 
-
 class AuthorMenu extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   selectMenuItem(author) {
     MenuService.selectItem(author);

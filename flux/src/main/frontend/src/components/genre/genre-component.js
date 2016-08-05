@@ -5,7 +5,9 @@ import MenuStore from '../../stores/menu.store';
 import GenresStore from '../../stores/genre.store';
 import Input from '../common/text-input';
 import Textarea from '../common/textarea';
-
+/*
+This is a component for Genres page
+ */
 class GenreComponent extends React.Component {
 
   constructor(props) {
@@ -15,15 +17,18 @@ class GenreComponent extends React.Component {
       selectedGenre : null
     };
     this.onChange = this.onChange.bind(this);
+    //We need to fetch all genres from backend
     GenresService.getGenres();
   }
 
   componentDidMount() {
+    //Component will listed for updates in of genres and selected menu item
     GenresStore.addChangeListener(this.onChange);
     MenuStore.addChangeListener(this.onChange);
   }
 
   componentWillUnmount() {
+    //We need to remove listener from unmounting of component
     GenresStore.removeChangeListener(this.onChange);
     MenuStore.removeChangeListener(this.onChange);
   }
@@ -42,20 +47,20 @@ class GenreComponent extends React.Component {
         <div className='row'>
         {
         	genreForm ? (
-        		<div>
-              <div className='col-md-5 col-md-push-7 col-sm-6 col-sm-push-6'>
-        	      {genreForm}
-        	    </div>
-        	    <div className='col-md-2 col-sm-0'> </div>
-        	    <div className='col-md-5 col-md-pull-7 col-sm-6 col-sm-pull-6'>
-        	      <GenreTable genres={this.state.genres}/>
-        	    </div>		
-        	  </div>		
+                <div>
+                    <div className='col-md-5 col-md-push-7 col-sm-6 col-sm-push-6'>
+                        {genreForm}
+                    </div>
+                    <div className='col-md-2 col-sm-0'></div>
+                    <div className='col-md-5 col-md-pull-7 col-sm-6 col-sm-pull-6'>
+                        <GenreTable genres={this.state.genres}/>
+                    </div>
+                </div>
         	) :
         	(
-        		<div className='col-md-7 col-xs-12'>
-        			<GenreTable genres={this.state.genres}/>
-        	  </div>		
+                <div className='col-md-7 col-xs-12'>
+                    <GenreTable genres={this.state.genres}/>
+                </div>
         	)
         }
         </div>
@@ -64,9 +69,7 @@ class GenreComponent extends React.Component {
   }
 }
 
-GenreComponent.propTypes = {
-		
-}
+GenreComponent.propTypes = {};
 
 export default GenreComponent;
 
@@ -81,11 +84,11 @@ class GenreForm extends React.Component {
   componentWillReceiveProps(nextProps) {
 	  this.setState(this.getComponentInitialState(nextProps));
   }
-  
+
   getComponentInitialState(props) {
     return {
       genre: JSON.parse(JSON.stringify(props.genre)),
-      disabledClass: 'disabled',
+      disabledClass: 'disabled'
     }
   }
 
@@ -114,12 +117,12 @@ class GenreForm extends React.Component {
   }
 
   close() {
-	  MenuService.selectItem(null);
+      MenuService.selectItem(null);
   }
-  
+
   render() {
-    let editingLabel = <span> Editing of <b> {this.props.genre.name} </b> Genre </span>
-    let creatingLabel = <span>Create new Genre</span>
+    let editingLabel = <span> Editing of <b> {this.props.genre.name} </b> Genre </span>;
+    let creatingLabel = <span>Create new Genre</span>;
     return (
       <div style={{marginTop: '10%'}}>
         <form className='form-horizontal'>
@@ -129,11 +132,10 @@ class GenreForm extends React.Component {
                  value={this.state.genre.name} onChange={this.handleNameChange.bind(this)} />
           <Textarea id='description' icon='' label='Genre description' placeholder='Enter description for genre...'
                     value={this.state.genre.description} onChange={this.handleDescriptionChange.bind(this)} />
-
           <div className='btn-toolbar text-center'>
           	<div className='btn-group pull-left' role='group'>
           		<button type='button' className='btn btn-success' onClick={this.close.bind(this)}>Close </button>
-          	</div>	
+          	</div>
         	<div className='btn-group pull-right' role='group'>
           		<button type='button' className={this.state.disabledClass + ' btn btn-primary'} onClick={this.state.disabledClass ? null : this.save.bind(this)}>Save</button>
           		<button type='button' className={this.state.disabledClass + ' btn btn-default'} onClick={this.state.disabledClass ? null : this.cancel.bind(this)}>Cancel</button>
@@ -152,16 +154,12 @@ GenreForm.propTypes = {
 
 class GenreTable extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   onShowUpdateGenreForm(genre) {
-	 MenuService.selectItem(genre);
+    MenuService.selectItem(genre);
   }
 
   onShowCreateGenreForm() {
-	  MenuService.selectItem({name:'', description: ''});
+    MenuService.selectItem({name: '', description: ''});
   }
 
   deleteGenre(genre) {
@@ -170,7 +168,7 @@ class GenreTable extends React.Component {
 
   render() {
     let self = this;
-    let rows = this.props.genres.map(function (genre, index) {
+    let rows = this.props.genres.map((genre, index) => {
     return (
       <tr key={genre.id}>
         <th scope='row'> {index + 1} </th>

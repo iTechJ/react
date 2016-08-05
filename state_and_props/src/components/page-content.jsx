@@ -3,7 +3,7 @@ import React from 'react';
 class PageContent extends React.Component {
 
   handleIsActiveChange(event) {
-    //Component is statelless - it only notifies it's parent about the change
+    //Component is stateless - it only notifies it's parent about the change
     this.props.handleChange('isActive', event.target.checked);
   }
 
@@ -19,7 +19,7 @@ class PageContent extends React.Component {
 
   /* Component will be re-rendered each time you type something into text fields*/
   render() {
-    console.log('Re-render');
+    console.log('Re-render - Each time when you type something in input box');
     let tooltipForSubtitle = '<span>If input field has a <b><i>Value</i></b> attribute and has no change listener, then this input will act like <b>read-only</b> <br/ >Try to set <i> isSubtitleReadOnly </i> to true in <b>injector.js</b> </span>';
     return (
       <div>

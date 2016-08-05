@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/app.dispatcher';
 import {
-	INIT_AUTHORS
+    INIT_AUTHORS
 } from '../utils/constants';
 import BaseStore from './base.store';
 

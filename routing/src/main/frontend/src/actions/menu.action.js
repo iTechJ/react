@@ -9,6 +9,5 @@ export default {
       actionType: SELECT_ITEM,
       data: selectedItem
     });
-
   }
 }

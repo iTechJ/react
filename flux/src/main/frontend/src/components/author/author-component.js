@@ -49,8 +49,6 @@ class AuthorComponent extends React.Component {
   }
 }
 
-AuthorComponent.propTypes = {
-
-};
+AuthorComponent.propTypes = {};
 
 export default AuthorComponent;
