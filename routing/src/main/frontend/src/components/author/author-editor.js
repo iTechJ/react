@@ -1,176 +1,137 @@
 import React from 'react';
-import AuthorsService from '../../services/author.service';
-import AuthorsStore from '../../stores/author.store';
-import MenuService from '../../services/menu.service';
-import MenuStore from '../../stores/menu.store';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Input from '../common/text-input';
-import Textarea from '../common/textarea';
 import Checkbox from '../common/checkbox';
-
-class AuthorEditorWrapper extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.onChange = this.onChange.bind(this);
-        this.getCurrentState = this.getCurrentState.bind(this);
-        this.state = this.getCurrentState();
-    }
-
-    componentDidMount() {
-        MenuStore.addChangeListener(this.onChange);
-    }
-
-    componentWillUnmount() {
-        MenuStore.removeChangeListener(this.onChange);
-    }
-
-    getCurrentState() {
-        return {
-            selectedItem: MenuStore.getSelectedItem() ? MenuStore.getSelectedItem() : null
-        }
-    }
-
-    onChange() {
-        this.setState(this.getCurrentState());
-    }
-
-    render() {
-        let formEditor = this.state.selectedItem ? <AuthorEditor author={this.state.selectedItem}/> : null;
-        let editorHeader = this.state.selectedItem ? <h2> View {this.state.selectedItem.firstName} {this.state.selectedItem.lastName} details </h2> : null;
-        return (
-            <div>
-                {editorHeader}
-                {formEditor}
-
-            </div>
-        );
-    }
-}
-
-AuthorEditorWrapper.propTypes = {};
-
-export default AuthorEditorWrapper;
+import { deleteAuthor, updateAuthor, makeNewAuthor } from '../../actions/author.action';
+import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import {
+  AUTHORS_URL
+} from '../../constants/constants';
 
 class AuthorEditor extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.getComponentInitialState = this.getComponentInitialState.bind(this);
-        this.handleStateChange = this.handleStateChange.bind(this);
-        this.state = this.getComponentInitialState(props);
+  constructor(props, context) {
+    super(props, context);
+    this.cancel = this.cancel.bind(this);
+  }
+
+  handleFirstNameChange(event) {
+    this.props.updateOperation('firstName', event.target.value);
+  }
+
+  handleLastNameChange(event) {
+    this.props.updateOperation('lastName', event.target.value);
+  }
+
+  handleDateOfBirthChange(event) {
+    this.props.updateOperation('dateOfBirth', event.target.value);
+  }
+
+  handleDateOfDeathChange(event) {
+    this.props.updateOperation('dateOfDeath', event.target.value);
+  }
+
+  handleOccupationChange(event) {
+    this.props.updateOperation('occupation', event.target.value);
+  }
+
+  handleActiveFlagChange(event) {
+    this.props.updateOperation('isActive', event.target.checked);
+  }
+
+  save() {
+    if (this.props.author.id) {
+      this.props.updateAuthor(this.props.author);
+    } else {
+      this.props.saveNewAuthor(this.props.author);
     }
+  }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState(this.getComponentInitialState(nextProps));
-    }
+  reset() {
+    this.props.resetOperation();
+  }
 
-    getComponentInitialState(props) {
-        return {
-            author: JSON.parse(JSON.stringify(props.author)),
-            disabledClass: 'disabled',
-        }
-    }
+  cancel() {
+    this.props.cancelOperation();
+    this.context.router.replace(AUTHORS_URL);
+  }
 
-    handleStateChange() {
-        this.state.disabledClass = '';
-        this.setState(this.state);
-    }
+  render() {
+    const deleteButton = this.props.author.id ? (
+      <button type='button' className='btn btn-danger' onClick={this.props.deleteAuthor.bind(this, this.props.author, this.context.router)}>
+        Delete
+      </button>
+    ) : null;
+    const disabledClass = this.props.changes ? '' : 'disabled';
+    return (
+      <form className='form-horizontal'>
+        <fieldset>
+          <legend>Edit or create information about any author</legend>
+          <Input id='firstName' type='text' label='First Name' value={this.props.author.firstName || '' }
+                 onChange={this.handleFirstNameChange.bind(this)}/>
+          <Input id='lastName' type='text' label='Last Name' value={this.props.author.lastName || '' }
+                 onChange={this.handleLastNameChange.bind(this)}/>
 
-    handleFirstNameChange(event) {
-        this.state.author.firstName = event.target.value;
-        this.handleStateChange();
-    }
+          <Input id='dob' type='text' label='Date of birth' placeholder='YYYY-mm-dd'
+                 value={this.props.author.dateOfBirth || '' } onChange={this.handleDateOfBirthChange.bind(this)}/>
 
-    handleLastNameChange(event) {
-        this.state.author.lastName = event.target.value;
-        this.handleStateChange();
-    }
+          <Input id='dod' type='text' label='Date of death' placeholder='YYYY-mm-dd'
+                 value={this.props.author.dateOfDeath || '' } onChange={this.handleDateOfDeathChange.bind(this)}/>
 
+          <Input id='occupation' type='text' label='Occupation'
+                 placeholder='What kind of books was written by him?'
+                 value={this.props.author.occupation || '' } onChange={this.handleOccupationChange.bind(this)}/>
 
-    handleDateOfBirthChange(event) {
-        this.state.author.dateOfBirth = event.target.value;
-        this.handleStateChange();
-    }
+          <Checkbox id='description' label='Is active?' value={this.props.author.isActive || '' }
+                    onChange={this.handleActiveFlagChange.bind(this)}/>
 
-    handleDateOfDeathChange(event) {
-        this.state.author.dateOfDeath = event.target.value;
-        this.handleStateChange();
-    }
-
-    handleOccupationChange(event) {
-        this.state.author.occupation = event.target.value;
-        this.handleStateChange();
-    }
-
-    handleActiveFlagChange(event) {
-        this.state.author.isActive = event.target.checked;
-        this.handleStateChange();
-    }
-
-    save() {
-        if (this.state.author.id) {
-            AuthorsService.updateAuthor(this.state.author);
-        } else {
-            AuthorsService.createAuthor(this.state.author);
-        }
-    }
-
-    cancel() {
-        this.setState(this.getComponentInitialState(this.props));
-    }
-
-    close() {
-        MenuService.selectItem(null);
-    }
-
-    deleteAuthor() {
-        AuthorsService.deleteAuthor(this.state.author);
-    }
-
-    render() {
-        return (
-            <form className='form-horizontal'>
-                <fieldset>
-                    <legend>Edit or create information about any author</legend>
-                    <Input id='firstName' type='text' icon='' label='First Name' placeholder=''
-                           value={this.state.author.firstName} onChange={this.handleFirstNameChange.bind(this)}/>
-                    <Input id='lastName' type='text' icon='' label='Last Name' placeholder=''
-                           value={this.state.author.lastName} onChange={this.handleLastNameChange.bind(this)}/>
-
-                    <Input id='dob' type='text' icon='' label='Date of birth' placeholder='YYYY-mm-dd'
-                           value={this.state.author.dateOfBirth} onChange={this.handleDateOfBirthChange.bind(this)}/>
-
-                    <Input id='dod' type='text' icon='' label='Date of death' placeholder='YYYY-mm-dd'
-                           value={this.state.author.dateOfDeath} onChange={this.handleDateOfDeathChange.bind(this)}/>
-
-                    <Input id='occupation' type='text' icon='' label='Occupation'
-                           placeholder='What kind of books was written by him?'
-                           value={this.state.author.occupation} onChange={this.handleOccupationChange.bind(this)}/>
-
-                    <Checkbox id='description' icon='' label='Is active?' value={this.state.author.isActive}
-                              onChange={this.handleActiveFlagChange.bind(this)}/>
-
-                    <div className='btn-toolbar text-center'>
-                        <button type='button' className='btn btn-primary pull-left'
-                                onClick={this.close.bind(this)}>Close
-                        </button>
-                        {
-                            this.props.author.id ? <button type='button' className='btn btn-danger pull-left'
-                                                           onClick={this.deleteAuthor.bind(this)}>Delete</button> : null
-                        }
-                        <button type='button' className={this.state.disabledClass + ' btn btn-success pull-right'}
-                                onClick={this.state.disabledClass ? null : this.save.bind(this)}>Save
-                        </button>
-                        <button type='button' className={this.state.disabledClass + ' btn btn-default pull-right'}
-                                onClick={this.state.disabledClass ? null : this.cancel.bind(this)}>Cancel
-                        </button>
-                    </div>
-                </fieldset>
-            </form>
-        );
-    }
+          <div className='btn-toolbar text-center'>
+            <button type='button' className='btn btn-primary' onClick={this.cancel.bind(this)}>Cancel</button>
+            { deleteButton }
+            <button type='button' className={`${disabledClass} btn btn-default float-right`}
+                    onClick={this.props.changes ? this.reset.bind(this) : null}>
+              Reset
+            </button>
+            <button type='button' className={`${disabledClass} btn btn-success float-right`}
+                    onClick={this.props.changes ? this.save.bind(this) : null}>
+              Save
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    );
+  }
 }
 
 AuthorEditor.propTypes = {
-    author: React.PropTypes.object.isRequired
+  author: React.PropTypes.object.isRequired,
+  changes: React.PropTypes.bool,
+  updateOperation: React.PropTypes.func.isRequired,
+  resetOperation: React.PropTypes.func.isRequired,
+  cancelOperation: React.PropTypes.func.isRequired,
+  updateAuthor: React.PropTypes.func.isRequired,
+  deleteAuthor: React.PropTypes.func.isRequired,
+  saveNewAuthor: React.PropTypes.func.isRequired
 };
+
+AuthorEditor.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
+function mapStateToProps() {
+  return {}
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateAuthor: bindActionCreators(updateAuthor, dispatch),
+    deleteAuthor: bindActionCreators(deleteAuthor, dispatch),
+    saveNewAuthor: bindActionCreators(makeNewAuthor, dispatch),
+    updateOperation: bindActionCreators(updateOperation, dispatch),
+    resetOperation: bindActionCreators(resetOperation, dispatch),
+    cancelOperation: bindActionCreators(cancelOperation, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorEditor);

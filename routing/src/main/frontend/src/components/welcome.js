@@ -1,49 +1,67 @@
 import React from 'react';
-
 import IndexComponent from './index';
+import { AUTHORS_URL, GENRES_URL } from '../constants/constants';
 
 class WelcomePage extends React.Component {
 
-  // Context - what is it? 
-  //This is mandatary to use this.context.router
+  /*
+    Please, pay attention at constructor arguments
+   */
   constructor(props, context) {
     super(props, context);
-    this.redirentToBooksPage = this.redirentToBooksPage.bind(this);
   }
 
-  redirentToBooksPage() {
-    this.context.router.replace('/books');
+  redirectToPage(page) {
+    //Example of programming navigation between routes
+    this.context.router.replace(page);
   }
-  
+
   render() {
     return (
       <IndexComponent>
-        <div className='jumbotron' style={{paddingBottom: '30px', paddingTop: '30px', marginTop: '10px'}}>
-          <h1>Router example </h1>
-          <p>
-            A critical feature in a SPA is navigation between "pages" within the application.
-            Of course they are not real pages, since its a Single Page Application, but from the user point of view it looks like that.
-            A typical example of a SPA is Gmail where the URL in the browser reflects the state of the application.
+        <div className='container'>
+          <div className='row justify-content-center'>
+            <div className='col'>
+              <div className='card'>
+                <div className='card-header'>
+                  <h4 className='card-title'>REDUX</h4>
+                </div>
+                <div className='card-block'>
+                  <h4 className='card-title'>Overview</h4>
 
-            Since we are not loading new pages from the server, we cannot use the regular browser navigation but need to provide one ourselves.
-            This is called routing and is provided by many JS frameworks like AngularJS.
-            ReactJS itself is not an application framework so there is no ready made router component provided by it.
-            But there is a react-router for this purpose.
-            The way it works is that you basically create route definitions, register them with the router and off it goes binding your components as the URL changes.
-            In this tutorial we have a total of four modules/routes/views just to demonstrate how to use the router.
+                  <p>
+                    Redux is a predictable state container for JavaScript apps.
+                    It helps you write applications that behave consistently, run in different environments (client,
+                    server, and
+                    native), and are easy to test. On top of that, it provides a great developer experience, such as
+                    live code
+                    editing combined with a time traveling debugger.
+                    You can use Redux together with React, or with any other view library.
+                  </p>
 
-          </p>
-          <p>
-            <a className='btn btn-lg btn-primary' target='_blank' href='https://github.com/reactjs/react-router' role='button'>View react-router docs  »</a>
-            <button className='brn btn-lg btn-danger' onClick={this.redirentToBooksPage}>Click me for Redirect >></button>
-          </p>
+                  <p>Redux evolves the ideas of Flux, but avoids its complexity by taking cues from Elm.</p>
+                </div>
+                <div className='card-footer'>
+                  <a className='btn btn-secondary' target='_blank' href='http://redux.js.org/docs/introduction/'
+                     role='button'>View redux docs</a>
+                  <button type='button' className='btn btn-info' onClick={this.redirectToPage.bind(this, AUTHORS_URL)}>
+                    Authors Page
+                  </button>
+                  <button type='button' className='btn btn-info' onClick={this.redirectToPage.bind(this, GENRES_URL)}>
+                    Genres Page
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </IndexComponent>
     );
   }
 }
 
-//This is mandatary to use this.context.router
+//Router allows you to perform navigation between different routes
+//It's available in all components, which declares the following contentTypes, as this.context.router
 WelcomePage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };

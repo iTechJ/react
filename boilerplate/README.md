@@ -1,6 +1,8 @@
 # install npm_modules
 npm install
 
-# build the project
-npm run dist
+# hot reloading mode
+npm run serve
 
+# build the project
+npm run build

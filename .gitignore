@@ -1,3 +1,4 @@
+boilerplate/.idea/
 boilerplate/node_modules/
 boilerplate/dist/
 
@@ -16,10 +17,12 @@ flux/src/main/frontend/node_modules/
 
 routing/node_modules/
 routing/target/
-routing/.settings/
+redux/.idea/
 routing/src/main/frontend/node_modules/
 
-
-
+redux/node_modules/
+redux/target/
+redux/.idea/
+redux/src/main/frontend/node_modules/
 
 

@@ -1,13 +1,25 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import StatePropsApp from './state-and-props';
-global.jQuery = require('jquery');
-global.$ = global.jQuery;
-require('bootstrap-webpack');
+import { AppContainer } from 'react-hot-loader';
+require('jquery/dist/jquery.min.js');
+require('tether/dist/css/tether.min.css');
+require('tether/dist/js/tether.min.js');
+require('bootstrap/dist/css/bootstrap.min.css');
+require('bootstrap/dist/js/bootstrap.min.js');
 
-//This line was moved to separate file, because usually there is some logic related to render function(Routing)
-//"state and props" label is shown capitalized because of 'text-capitalize' css class
-//"Working with forms" label is shown in lowercase because of 'text-lowercase' css class
-render(<StatePropsApp pageTitle='state and props. Working with forms' isSubtitleReadOnly={false}/>, document.getElementById('app'));
+//This line was moved to separate file, because usually special object will be build here and then passed to render function
+const render = (component) => {
+  ReactDOM.render(
+    <AppContainer>
+      {component}
+    </AppContainer>,
+    document.getElementById('app')
+  )
+};
 
+render(<StatePropsApp pageTitle='State and props. Working with forms' isSubtitleReadOnly={false}/>);
 
+if (module.hot) {
+  module.hot.accept('./layout/components-app', () => { render(<StatePropsApp pageTitle='State and props. Working with forms' isSubtitleReadOnly={false}/>) })
+}

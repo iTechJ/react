@@ -1,17 +1,8 @@
-import React from 'react';
-import PageContent from './page-content';
 import $ from 'jquery';
+import React from 'react';
+import FormContent from './form-content';
 
 class StatePropsApp extends React.Component {
-
-  /*
-   Perform any DOM manipulattions ONLY when component was rendered
-   */
-  componentDidMount() {
-    $('body').tooltip({
-      selector: "[data-toggle='tooltip']"
-    });
-  }
 
   constructor(props) {
     super(props);
@@ -24,26 +15,36 @@ class StatePropsApp extends React.Component {
   }
 
   /*
-   In general, state should be flat.
-   Having object in state might be usefull for form data
    State is just an object
-   */
+   In general, it should be flat - it's a good practise to avoid object fields.
+   Having object in state might be useful for form data
+  */
   getCurrentState() {
     return {
       pageSubTitle: 'Some code samples',  //Comment this line to see default props
       currentPageDetails: {
         isActive: true,
         ruleId: 12,
-        applications: ['File structure', 'Design principes'],
+        applications: ['File structure', 'Design principles'],
         description: 'Some text'
       }
     };
+  }
+  /*
+   Perform any DOM manipulations ONLY when component was rendered (in componentDidMount and componentDidUpdate)
+   Using jQuery with React isn't a good practise, but it is allowed sometimes.
+   Never use jQuery for anything that can be done with React (for example, do not create elements using jQuery)
+   */
+  componentDidMount() {
+    $('body').tooltip({
+      selector: "[data-toggle='tooltip']"
+    });
   }
 
   onCurrentPageDetailsChange(fieldName, newValue) {
     /*
      This is the only way to update field of nested state object
-     Be sure to immediatelly call this.setState(this.state)
+     Be sure to immediately call this.setState(this.state)
      */
     this.state.currentPageDetails[fieldName] = newValue;
     this.setState(this.state);
@@ -56,21 +57,22 @@ class StatePropsApp extends React.Component {
   }
 
   render() {
-    let help = <span> Please pay attention at that form component <b>has not state</b> in this example</span>;
+    const help = <span>Please pay attention at that form component <b>has not state</b> in this example</span>;
+    //As you can see, this string is used with dangerouslySetInnerHTML attribute. It's value must be object with field __html.
+    //dangerouslySetInnerHTML has limitations and sometimes cannot be used. Please review documentation for additional details.
+    const rawHTML = '<h4 class="text-info">This is raw HTML markup</h4><div class="navbar-form navbar-left" style="width:100%" role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search"></div><button type="button" class="btn btn-primary">Submit</button></div>';
     return (
       <div>
-        <div className='container' style={{paddingTop:'10%'}}>
-          <div className='row'>
-            <div className='col-md-8 col-md-offset-2'>
-              <div className='text-center'
-                   dangerouslySetInnerHTML={{__html: '<h4 class="text-info">This is raw HTML markup</h4><form class="navbar-form navbar-left" style="width:100%" role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search"></div><button type="submit" class="btn btn-default">Submit</button></form>'}}>
-
+        <div className='container'>
+          <div className='row justify-content-center'>
+            <div className='col-md-8'>
+              <div className='text-center' dangerouslySetInnerHTML={{__html: rawHTML}}>
               </div>
             </div>
           </div>
-          <div className='row'>
-            <div className='col-md-8 col-md-offset-2 col-sm-10  col-sm-offset-1'>
-              <PageContent pageTitle={this.props.pageTitle} subTitle={this.state.pageSubTitle} help={help}
+          <div className='row justify-content-center'>
+            <div className='col-md-8 col-sm-10'>
+              <FormContent pageTitle={this.props.pageTitle} subTitle={this.state.pageSubTitle} help={help}
                            details={this.state.currentPageDetails} handleChange={this.onCurrentPageDetailsChange}
                            handleSubtitleChange={this.props.isSubtitleReadOnly ? null : this.onSubTitleChange}/>
             </div>

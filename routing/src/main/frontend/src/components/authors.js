@@ -1,23 +1,35 @@
 import React from 'react';
-import AuthorsService from '../services/author.service';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { selectTab } from '../actions/navigation.action';
+import { loadAuthors, fetchAuthor } from '../actions/author.action';
+import { cancelOperation } from '../actions/operation.action';
 import IndexComponent from './index';
 import AuthorComponent from './author/author-component';
-import NavigationAction from '../actions/navigation.action';
 import {
   NAVIGATION_TAB_AUTHORS
-} from '../utils/constants';
+} from '../constants/constants';
 
 class AuthorsPage extends React.Component {
 
-  constructor(props) {
-    super(props);
-    //You already know, top-level component initializes data, required to correctly render the page
-    NavigationAction.selectTab(NAVIGATION_TAB_AUTHORS);
-    AuthorsService.getAuthors();
+  componentDidMount() {
+    this.props.selectTab(NAVIGATION_TAB_AUTHORS);
+    this.props.loadAuthors();
+    this.props.cancelCurrentOperation();
+    this.updatePageState(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updatePageState(nextProps);
+  }
+
+  updatePageState(props) {
+    if (props.params.authorId) {
+      props.fetchAuthor(props.params.authorId);
+    }
   }
 
   render() {
-    //We are using Nested components here! Please review code of IndexComponent
     return (
       <IndexComponent>
         <AuthorComponent />
@@ -25,5 +37,23 @@ class AuthorsPage extends React.Component {
     );
   }
 }
+/*
+ We don't need copy anything to props from app state here
+ */
+function mapStateToProps(state) {
+  return {}
+}
 
-export default AuthorsPage;
+/*
+ Here we assign handlers to some actions
+ */
+function mapDispatchToProps(dispatch) {
+  return {
+    selectTab: bindActionCreators(selectTab, dispatch),
+    loadAuthors: bindActionCreators(loadAuthors, dispatch),
+    fetchAuthor: bindActionCreators(fetchAuthor, dispatch),
+    cancelCurrentOperation : bindActionCreators(cancelOperation, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorsPage);

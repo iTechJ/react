@@ -1,63 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router';
-import NavigationStore from '../stores/navigation.store';
+import { connect } from 'react-redux';
+import { Link } from 'react-router'; //This works as <a>, but pays attention at type of History you're using
 import {
-  NAVIGATION_TAB_GENRES,
   NAVIGATION_TAB_AUTHORS,
-  NAVIGATION_TAB_BOOKS
-} from '../utils/constants';
-import LogoImg from '../images/logo.png';
+  NAVIGATION_TAB_GENRES,
+  AUTHORS_URL,
+  GENRES_URL
+} from '../constants/constants';
 
 class HeaderComponent extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.state  = {activeItem : NavigationStore.getSelectedTab()};
-  }
-
-  componentDidMount() {
-    NavigationStore.addChangeListener(this.onChange);
-  }
-
-  componentWillUnmount() {
-    NavigationStore.removeChangeListener(this.onChange);
-  }
-
-  onChange() {
-    this.setState({activeItem : NavigationStore.getSelectedTab()});
-  }
-
   render() {
     return (
-      <section className='app-header'>
-        <div className='container'>
-          <nav className='navbar navbar-light navbar-static-top' role='navigation'>
-            <div className='container-fluid'>
-              <div className='navbar-header'>
-                <a className='navbar-brand' href='#'>
-                  <img alt='Logo' src='src/images/logo.png' style={{width:'40px', height: '30px'}}></img>
-                </a>
-              </div>
-              <div className='collapse navbar-collapse'>
-                <ul className='nav navbar-nav'>
-                  <li className={this.state.activeItem === NAVIGATION_TAB_GENRES ? 'active' : null}>
-                    <Link  to='/genres'>Genres</Link>
+      <header>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <nav className='navbar navbar-toggleable-md navbar-light bg-faded' role='navigation'>
+              <button className='navbar-toggler navbar-toggler-right' type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='navigation'>
+                <span className='navbar-toggler-icon'></span>
+              </button>
+              <a className='navbar-brand' href='#'>
+                <img alt='Logo' src='src/images/logo.png' style={{width:'40px', height: '30px'}}></img>
+              </a>
+              <div className='collapse navbar-collapse' id='navbarNav'>
+                <ul className='navbar-nav'>
+                  <li className={this.props.activeItem === NAVIGATION_TAB_AUTHORS ? 'nav-item active' : 'nav-item'}>
+                    <Link className='nav-link' to={AUTHORS_URL}>Authors</Link>
                   </li>
-                  <li className={this.state.activeItem === NAVIGATION_TAB_AUTHORS ? 'active' : null}>
-                    <Link to='/authors'>Authors</Link>
-                  </li>
-                  <li className={this.state.activeItem === NAVIGATION_TAB_BOOKS ? 'active' : null}>
-                    <Link to='/books'>Books</Link>
+                  <li className={this.props.activeItem === NAVIGATION_TAB_GENRES ? 'nav-item active' : 'nav-item'}>
+                    <Link className='nav-link' to={GENRES_URL}>Genres</Link>
                   </li>
                 </ul>
               </div>
-            </div>
-          </nav>
+            </nav>
+          </div>
         </div>
-      </section>
+      </header>
     );
   }
 }
 
-export default HeaderComponent;
+HeaderComponent.propTypes = {
+  activeItem: React.PropTypes.string
+};
+
+function mapStateToProps(state) {
+  return {
+    activeItem: state.navigation.currentTab
+  }
+}
+
+export default connect(mapStateToProps)(HeaderComponent);
