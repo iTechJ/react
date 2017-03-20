@@ -1,16 +1,16 @@
 import AppDispatcher from '../dispatcher/app.dispatcher';
 import {
   INIT_GENRES
-} from '../utils/constants';
+} from '../constants/constants';
 
 /*
-This is action creator. It passes action to Dispatcher (which is provided by flux modules)
+This is action creator. It passes action to Dispatcher (Which is provided by flux modules)
  */
 export default {
   initGenres(genres) {
     AppDispatcher.handleAction({
-      actionType: INIT_GENRES,   //Usually action contains only 2 fields: Data and Type
-      data: genres
+      type: INIT_GENRES,   //Usually action contains only 2 fields: type and payload
+      payload: genres
     });
   }
 }

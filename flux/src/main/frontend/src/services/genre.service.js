@@ -1,30 +1,30 @@
 import $ from 'jquery';
 import GenreAction from '../actions/genre.action';
-import MenuService from './menu.service';
+import OperationAction from '../actions/operation.action';
 
 export default {
 
-  getGenres() {
+  loadGenres() {
     $.ajax({
       url: '/api/genres',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done(function (json) {
+    }).done((genres) => {
       //When request from backend is received we pass data to action creator
-      GenreAction.initGenres(json);
+      GenreAction.initGenres(genres);
       /*
        Services are not a part of FLUX architecture.
        This additional level was introduces because usually you may want to create many actions when response from backend is received
        Also, processing of many requests may require creation of the same actions
        */
-    }).fail(function (response, textStatus, error) {
+    }).fail(() => {
       console.log('Could not get list of genres');
     });
   },
 
-  createGenre(genre) {
+  makeNewGenre(genre) {
     $.ajax({
       type: 'POST',
       url: '/api/genres',
@@ -34,10 +34,10 @@ export default {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done((json) => {
-      MenuService.selectItem(json);
-      this.getGenres();
-    }).fail(function (response) {
+    }).done((updatedGenre) => {
+      OperationAction.startOperation(updatedGenre);
+      this.loadGenres();
+    }).fail(() => {
       console.log('Could not save genre');
     });
   },
@@ -52,9 +52,10 @@ export default {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done(function (json) {
-      MenuService.selectItem(json);
-    }).fail(function (response) {
+    }).done((updatedGenre) => {
+      OperationAction.startOperation(updatedGenre);
+      this.loadGenres()
+    }).fail(() => {
       console.log('Could not update genre');
     });
   },
@@ -68,9 +69,9 @@ export default {
         'X-Requested-With': 'XMLHttpRequest'
       }
     }).done(() => {
-      this.getGenres();
-      MenuService.selectItem(null);
-    }).fail(function (response) {
+      this.loadGenres();
+      OperationAction.cancelOperation();
+    }).fail(() => {
       console.log('Could not delete genre');
     });
   }

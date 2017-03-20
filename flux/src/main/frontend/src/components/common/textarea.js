@@ -3,11 +3,7 @@ import React from 'react';
 let DEFAULT_AMOUNT_OF_ROWS = 10;
 let MIN_AMOUNT_OF_ROWS = 5;
 
-class Textarea extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
+class TextareaElement extends React.Component {
 
   render() {
     let value = this.props.value ? this.props.value : '';
@@ -16,25 +12,28 @@ class Textarea extends React.Component {
     amountOfLines = amountOfLines < MIN_AMOUNT_OF_ROWS ? MIN_AMOUNT_OF_ROWS : amountOfLines;
     return (
       <div className='form-group'>
-      	<label className='control-label'>
-      		<i className={this.props.icon}></i>
-      		{this.props.label}
-      	</label>
-        <textarea id={this.props.id} className='form-control' maxLength={this.props.maxLength} value={value} rows={amountOfLines} placeholder={this.props.placeholder} onChange={this.props.onChange}></textarea>
+        <label className='control-label'>
+          {this.props.label}
+        </label>
+        <textarea id={this.props.id} className='form-control' maxLength={this.props.maxLength} value={value}
+                  rows={amountOfLines} placeholder={this.props.placeholder} onChange={this.props.onChange}></textarea>
       </div>
     );
   }
 }
 
-Textarea.propTypes = {
-  icon: React.PropTypes.string.isRequired,
-  label: React.PropTypes.any.isRequired,
+TextareaElement.propTypes = {
   id: React.PropTypes.string.isRequired,
-  placeholder: React.PropTypes.string,
-  value: React.PropTypes.string,
+  label: React.PropTypes.any.isRequired,
   onChange: React.PropTypes.func.isRequired,
+  value: React.PropTypes.string.isRequired,
+  placeholder: React.PropTypes.string,
   maxLength: React.PropTypes.number
 };
 
-export default Textarea;
+TextareaElement.defaultProps = {
+  placeholder: ''
+};
+
+export default TextareaElement;
 

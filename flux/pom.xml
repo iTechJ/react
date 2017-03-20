@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>by.itechart.reactlesson</groupId>
-    <artifactId>spring-boot-and-react-flux-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>flux-example</artifactId>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
-    <name>spring-boot-and-react-flux-example</name>
-    <description>Example of CRUD using ReactJs and Spring Boot</description>
+    <name>flux-example</name>
+    <description>Example of CRUD using ReactJS, FLUX and Spring Boot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -42,36 +42,33 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>		
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.193</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>19.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -117,7 +114,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>run-script dev-build</arguments>
+                            <arguments>run-script build</arguments>
                         </configuration>
                     </execution>
                 </executions>

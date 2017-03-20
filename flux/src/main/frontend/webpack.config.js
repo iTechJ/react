@@ -1,61 +1,143 @@
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+'use strict';
+let path = require('path');
+
+let port = 8080;
+let srcPath = path.join(__dirname, '/../src');
+let publicPath = '/assets/';
+let webpack = require('webpack');
 
 module.exports = {
-    entry: "./src/app.js",
-    output: {
-        path: '../../../target/classes/static/',
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.(js|jsx)$/,
-                include: [
-                    path.resolve(__dirname, "./src")
-                ],
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react']
-                }
-            },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
-                test: /\.sass/,
-                loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
-            },
-            {
-                test: /\.scss/,
-                loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
-            },
-            {
-                test: /\.less/,
-                loader: 'style-loader!css-loader!less-loader'
-            },
-            {
-                test: /\.styl/,
-                loader: 'style-loader!css-loader!stylus-loader'
-            },
-            {
-                test: /\.(png|jpg|gif|woff|woff2)$/,
-                loader: 'url-loader?limit=8192'
-            },
-            {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&minetype=application/font-woff"
-            },
-            {
-                test: /\.(png|jpg|gif|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "file-loader?name=[path][name].[ext]"
-            }, {
-                test: /\.json$/,
-                loader: 'file-loader?name=[path]config.[ext]'
-            }
+  entry: [
+    './src/entry-point.js'
+  ],
+  devtool: 'source-map',
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Tether: "tether",
+      "window.Tether": "tether"
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      compress: {
+        unused: true,
+        dead_code: true,
+        warnings: false,
+        drop_debugger: true,
+        conditionals: true,
+        evaluate: true,
+        drop_console: true,
+        sequences: true,
+        booleans: true
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ],
+  output: {
+    path: '../../../target/classes/static/',
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          "babel-loader"
         ]
-    },
-    plugins: [new ExtractTextPlugin("[name].css")]
+      },
+      {
+        test: /\.(js|jsx)$/,
+        enforce: "pre",
+        use: 'eslint-loader'
+      },
+
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "less-loader"
+        ]
+      },
+      {
+        test: /bootstrap\/dist\/js\/umd\//,
+        use: 'imports-loader?jQuery=jquery'
+      },
+      {
+        test: /\.sass/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "sass-loader",
+            query: {
+              outputStyle: 'expanded',
+              indentedSyntax: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
+        test: /\.less/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "less-loader"
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif|woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          query: {
+            limit: '8192'
+          }
+        }
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: {
+          loader: 'url-loader',
+          query: {
+            limit: '10000',
+            minetype : 'application/font-woff'
+          }
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: {
+          loader: 'file-loader',
+          query: {
+            name: '[path][name].[ext]'
+          }
+        }
+      }
+    ]
+  }
 };

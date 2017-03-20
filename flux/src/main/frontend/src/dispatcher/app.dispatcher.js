@@ -1,7 +1,7 @@
 import {Dispatcher} from 'flux';
 import {
   VIEW_ACTION
-} from '../utils/constants';
+} from '../constants/constants';
 
 class DispatcherClass extends Dispatcher {
 

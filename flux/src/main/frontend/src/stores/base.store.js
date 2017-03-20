@@ -1,6 +1,6 @@
 import {
 	CHANGE_EVENT
-} from '../utils/constants';
+} from '../constants/constants';
 import EventEmitter from 'events';
 
 class BaseStore extends EventEmitter {
