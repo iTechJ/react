@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteGenre } from '../../actions/genre.action';
@@ -60,9 +61,9 @@ class GenreTable extends React.Component {
 }
 
 GenreTable.propTypes = {
-  genres: React.PropTypes.array.isRequired,
-  startOperation: React.PropTypes.func.isRequired,
-  deleteGenre: React.PropTypes.func.isRequired
+  genres: PropTypes.array.isRequired,
+  startOperation: PropTypes.func.isRequired,
+  deleteGenre: PropTypes.func.isRequired
 };
 
 

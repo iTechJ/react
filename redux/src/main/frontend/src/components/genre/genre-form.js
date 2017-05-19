@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from '../common/text-input';
 import Textarea from '../common/textarea';
 import {connect} from 'react-redux';
@@ -67,13 +68,13 @@ class GenreForm extends React.Component {
 }
 
 GenreForm.propTypes = {
-  genre: React.PropTypes.object.isRequired,
-  changes: React.PropTypes.bool,
-  createGenre: React.PropTypes.func.isRequired,
-  updateGenre: React.PropTypes.func.isRequired,
-  updateOperation: React.PropTypes.func.isRequired,
-  resetOperation: React.PropTypes.func.isRequired,
-  cancelOperation: React.PropTypes.func.isRequired
+  genre: PropTypes.object.isRequired,
+  changes: PropTypes.bool,
+  createGenre: PropTypes.func.isRequired,
+  updateGenre: PropTypes.func.isRequired,
+  updateOperation: PropTypes.func.isRequired,
+  resetOperation: PropTypes.func.isRequired,
+  cancelOperation: PropTypes.func.isRequired
 };
 
 let mapStateToProps = function () {

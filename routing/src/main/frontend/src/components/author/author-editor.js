@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Input from '../common/text-input';
@@ -105,18 +106,18 @@ class AuthorEditor extends React.Component {
 }
 
 AuthorEditor.propTypes = {
-  author: React.PropTypes.object.isRequired,
-  changes: React.PropTypes.bool,
-  updateOperation: React.PropTypes.func.isRequired,
-  resetOperation: React.PropTypes.func.isRequired,
-  cancelOperation: React.PropTypes.func.isRequired,
-  updateAuthor: React.PropTypes.func.isRequired,
-  deleteAuthor: React.PropTypes.func.isRequired,
-  saveNewAuthor: React.PropTypes.func.isRequired
+  author: PropTypes.object.isRequired,
+  changes: PropTypes.bool,
+  updateOperation: PropTypes.func.isRequired,
+  resetOperation: PropTypes.func.isRequired,
+  cancelOperation: PropTypes.func.isRequired,
+  updateAuthor: PropTypes.func.isRequired,
+  deleteAuthor: PropTypes.func.isRequired,
+  saveNewAuthor: PropTypes.func.isRequired
 };
 
 AuthorEditor.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 function mapStateToProps() {

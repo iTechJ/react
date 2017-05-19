@@ -19,8 +19,11 @@ module.exports = {
     './src/components/entry-point.js'
     // the entry point of our app
   ],
-  devtool: 'eval',
+  devtool: 'source-map',
   plugins: [
+    new webpack.DefinePlugin({'process.env': {
+      'NODE_ENV': JSON.stringify('production')
+    }}),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -41,6 +44,7 @@ module.exports = {
       Util: "exports-loader?Util!bootstrap/js/dist/util"
     }),
     new webpack.NamedModulesPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: true

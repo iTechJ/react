@@ -6,6 +6,10 @@ let srcPath = path.join(__dirname, '/../src');
 let publicPath = '/assets/';
 let webpack = require('webpack');
 
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
   entry: [
     './src/entry-point.js'
@@ -22,6 +26,7 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compress: {
@@ -35,6 +40,14 @@ module.exports = {
         sequences: true,
         booleans: true
       }
+    }),
+    new ExtractTextPlugin({filename: '[name].css', allChunks : true}),
+    // Make sure this is after ExtractTextPlugin!
+    new PurifyCSSPlugin({
+      verbose: true,
+      minimize: true,
+      paths: glob.sync(path.join(__dirname, './src/**')),
+      styleExtensions: ['.css']
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -66,11 +79,15 @@ module.exports = {
 
       {
         test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "less-loader"
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: {
+            loader: "css-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        })
       },
       {
         test: /bootstrap\/dist\/js\/umd\//,

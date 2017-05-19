@@ -23,3 +23,22 @@
   margin-right : 10px;
   cursor: pointer;
 }
+
+
+.dummay-unused-rule {
+  display: block;
+  padding: 30px;
+  padding-top:40px;
+  width:90%;
+}
+
+.another-dummay-unused-rule {
+  display: block;
+  padding: 30px;
+  padding-top:40px;
+  width:90%;
+}
+
+.third-unused-rule{
+  margin-bottom: 50px;
+}

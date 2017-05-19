@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class InputComponent extends React.Component {
   render() {
@@ -15,12 +16,12 @@ class InputComponent extends React.Component {
 }
 
 InputComponent.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
-  label: React.PropTypes.any.isRequired,
-  value: React.PropTypes.any.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  placeholder: React.PropTypes.string
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  label: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string
 };
 InputComponent.defaultProps = {
   placeholder: ''

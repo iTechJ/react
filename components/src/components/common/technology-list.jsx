@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LinkWithIcon from './link-with-icon';
 /*
  This component is a view for specific feature - List of Technologies
@@ -33,7 +34,7 @@ class TechnologyList extends React.Component {
 }
 
 TechnologyList.propTypes = {
-  technologies: React.PropTypes.array.isRequired
+  technologies: PropTypes.array.isRequired
 };
 
 export default TechnologyList;

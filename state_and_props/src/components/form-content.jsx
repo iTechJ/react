@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class FormContent extends React.Component {
 
@@ -69,17 +70,17 @@ class FormContent extends React.Component {
 }
 
 FormContent.propTypes = {
-  pageTitle: React.PropTypes.string.isRequired,
-  subTitle: React.PropTypes.string,
-  details: React.PropTypes.shape({
-    ruleId: React.PropTypes.number.isRequired,
-    isActive: React.PropTypes.bool.isRequired,
-    applications: React.PropTypes.array.isRequired,
-    description: React.PropTypes.string.isRequired
+  pageTitle: PropTypes.string.isRequired,
+  subTitle: PropTypes.string,
+  details: PropTypes.shape({
+    ruleId: PropTypes.number.isRequired,
+    isActive: PropTypes.bool.isRequired,
+    applications: PropTypes.array.isRequired,
+    description: PropTypes.string.isRequired
   }).isRequired,
-  help: React.PropTypes.any,
-  handleChange: React.PropTypes.func.isRequired,
-  handleSubtitleChange: React.PropTypes.func
+  help: PropTypes.any,
+  handleChange: PropTypes.func.isRequired,
+  handleSubtitleChange: PropTypes.func
 };
 
 FormContent.defaultProps = {

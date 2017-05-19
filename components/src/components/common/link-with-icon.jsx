@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 /*
   This component contains a logic how to display Read More link
 */
@@ -13,7 +13,7 @@ class LinkWithIcon extends React.Component {
 
 /* Names of props should be in camelCase */
 LinkWithIcon.propTypes = {
-  linkUrl: React.PropTypes.string.isRequired
+  linkUrl: PropTypes.string.isRequired
 };
 
 export default LinkWithIcon;

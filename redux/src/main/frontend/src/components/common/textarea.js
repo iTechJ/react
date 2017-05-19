@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let DEFAULT_AMOUNT_OF_ROWS = 10;
 let MIN_AMOUNT_OF_ROWS = 5;
@@ -23,12 +24,12 @@ class TextareaElement extends React.Component {
 }
 
 TextareaElement.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  label: React.PropTypes.any.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string.isRequired,
-  placeholder: React.PropTypes.string,
-  maxLength: React.PropTypes.number
+  id: PropTypes.string.isRequired,
+  label: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  maxLength: PropTypes.number
 };
 
 TextareaElement.defaultProps = {

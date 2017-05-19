@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IndexComponent from './index';
 import { AUTHORS_URL, GENRES_URL } from '../constants/constants';
 
@@ -63,7 +64,7 @@ class WelcomePage extends React.Component {
 //Router allows you to perform navigation between different routes
 //It's available in all components, which declares the following contentTypes, as this.context.router
 WelcomePage.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default WelcomePage;

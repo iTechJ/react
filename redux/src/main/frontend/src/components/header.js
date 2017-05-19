@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   NAVIGATION_TAB_GENRES
@@ -34,7 +35,7 @@ class HeaderComponent extends React.Component {
 }
 
 HeaderComponent.propTypes = {
-  activeItem: React.PropTypes.string
+  activeItem: PropTypes.string
 };
 
 function mapStateToProps(state) {

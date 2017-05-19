@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 /*This component displays link to React application generator */
 class WarningComponent extends React.Component {
   render() {
@@ -17,7 +17,7 @@ class WarningComponent extends React.Component {
 }
 
 WarningComponent.propTypes = {
-  link: React.PropTypes.string.isRequired
+  link: PropTypes.string.isRequired
 };
 
 export default WarningComponent;

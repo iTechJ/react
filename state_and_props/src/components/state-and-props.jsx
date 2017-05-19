@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import React from 'react';
 import FormContent from './form-content';
+import PropTypes from 'prop-types';
 
 class StatePropsApp extends React.Component {
 
@@ -84,8 +85,8 @@ class StatePropsApp extends React.Component {
 }
 
 StatePropsApp.propTypes = {
-  pageTitle: React.PropTypes.string.isRequired,
-  isSubtitleReadOnly: React.PropTypes.bool.isRequired
+  pageTitle: PropTypes.string.isRequired,
+  isSubtitleReadOnly: PropTypes.bool.isRequired
 };
 
 export default StatePropsApp;

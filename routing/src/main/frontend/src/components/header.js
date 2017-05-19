@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router'; //This works as <a>, but pays attention at type of History you're using
 import {
   NAVIGATION_TAB_AUTHORS,
@@ -41,7 +42,7 @@ class HeaderComponent extends React.Component {
 }
 
 HeaderComponent.propTypes = {
-  activeItem: React.PropTypes.string
+  activeItem: PropTypes.string
 };
 
 function mapStateToProps(state) {

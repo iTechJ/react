@@ -4,10 +4,6 @@ import {
   INIT_GENRES
 } from '../constants/actionTypes';
 
-import {
-  GENRES_URL
-} from '../constants/constants';
-
 export function loadGenres() {
   return (dispatch) => {
     $.ajax({

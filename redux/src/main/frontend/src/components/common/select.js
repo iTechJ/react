@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class SelectComponent extends React.Component {
   render() {
@@ -16,11 +17,11 @@ class SelectComponent extends React.Component {
 }
 
 SelectComponent.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  label: React.PropTypes.any.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  options: React.PropTypes.array.isRequired,
-  value: React.PropTypes.any.isRequired
+  id: PropTypes.string.isRequired,
+  label: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 export default SelectComponent;

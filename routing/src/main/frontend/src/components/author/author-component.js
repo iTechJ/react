@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Menu from '../menu/menu';
@@ -50,11 +51,11 @@ class AuthorComponent extends React.Component {
 }
 
 AuthorComponent.propTypes = {
-  authors: React.PropTypes.array.isRequired,
-  currentAuthor: React.PropTypes.object,
-  originalAuthor: React.PropTypes.object,
-  changes: React.PropTypes.bool,
-  showCreateNewUserPage: React.PropTypes.func.isRequired
+  authors: PropTypes.array.isRequired,
+  currentAuthor: PropTypes.object,
+  originalAuthor: PropTypes.object,
+  changes: PropTypes.bool,
+  showCreateNewUserPage: PropTypes.func.isRequired
 };
 
 let mapStateToProps = function (state) {

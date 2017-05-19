@@ -37,7 +37,7 @@ export default ComponentsApp;
 class HeaderComponent extends React.Component {
   render() {
     return (
-      <header style={{borderBottom: '1px solid #eee;', marginTop: '40px', marginBottom: '40px'}}>
+      <header style={{borderBottom: '1px solid #eee', marginTop: '40px', marginBottom: '40px'}}>
         <div className='container-fluid'>
           <div className='row justify-content-center'>
             <div className='col text-center'>

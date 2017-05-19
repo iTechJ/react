@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 class Menu extends React.Component {
 
@@ -40,8 +41,8 @@ class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-  header: React.PropTypes.string.isRequired,
-  items: React.PropTypes.array.isRequired
+  header: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired
 };
 
 export default Menu;

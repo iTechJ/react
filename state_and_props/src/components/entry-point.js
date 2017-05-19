@@ -21,5 +21,5 @@ const render = (component) => {
 render(<StatePropsApp pageTitle='State and props. Working with forms' isSubtitleReadOnly={false}/>);
 
 if (module.hot) {
-  module.hot.accept('./layout/components-app', () => { render(<StatePropsApp pageTitle='State and props. Working with forms' isSubtitleReadOnly={false}/>) })
+  module.hot.accept('./state-and-props', () => { render(<StatePropsApp pageTitle='State and props. Working with forms' isSubtitleReadOnly={false}/>) })
 }

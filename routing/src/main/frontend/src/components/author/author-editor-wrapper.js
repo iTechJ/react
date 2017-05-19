@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AuthorEditor from './author-editor';
 
 class AuthorEditorWrapper extends React.Component {
@@ -13,9 +14,9 @@ class AuthorEditorWrapper extends React.Component {
 }
 
 AuthorEditorWrapper.propTypes = {
-  originalAuthor: React.PropTypes.object.isRequired,
-  author: React.PropTypes.object.isRequired,
-  changes: React.PropTypes.bool
+  originalAuthor: PropTypes.object.isRequired,
+  author: PropTypes.object.isRequired,
+  changes: PropTypes.bool
 };
 
 export default AuthorEditorWrapper;

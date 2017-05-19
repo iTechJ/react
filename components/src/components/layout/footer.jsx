@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 /*
  You can use Stateless functions instead of ReactComponents to combine ReactElements.
  Note: It must be a pure function of it's arguments
@@ -25,8 +26,8 @@ const FooterComponent = function (props) {
 
 //You can specify PropTypes for stateless functions
 FooterComponent.propTypes = {
-  year: React.PropTypes.string.isRequired,
-  reactVersion: React.PropTypes.string.isRequired
+  year: PropTypes.string.isRequired,
+  reactVersion: PropTypes.string.isRequired
 };
 
 export default FooterComponent;

@@ -22,7 +22,7 @@ const render = Component => {
 };
 
 render(ComponentsApp);
-
+//This is needed to enable HRM for React.JS code
 if (module.hot) {
   module.hot.accept('./layout/components-app', () => { render(ComponentsApp) })
 }
